@@ -1,0 +1,24 @@
+INSERT OR REPLACE INTO
+Types (id,title)
+VALUES
+(1, 'Choises'),
+(2, 'RadioButtons'),
+(3, 'Text');
+
+INSERT OR REPLACE INTO
+Question (id,content,id_type)
+VALUES
+(1, 'Сколько тебе лет?', 3),
+(2, 'Выбери свой пол:', 1),
+(3, 'Ты учишься или работаешь?', 2);
+
+INSERT OR REPLACE INTO
+AnswerValues (id_Question,value)
+VALUES
+(2,'Мужской'),
+(2,'Женский'),
+(2,'Паркетный О_о'),
+(3,'Учусь'),
+(3,'Работаю'),
+(3,'Я страус');
+
