@@ -4,4 +4,4 @@ spec-course
 spec-course, 514 group
 
 Hello, World!
-^__^
+Это социальный опросник, должен хоть как то работать)
