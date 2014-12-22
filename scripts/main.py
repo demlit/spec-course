@@ -125,7 +125,7 @@ class BeginTestHandler(tornado.web.RequestHandler):
 class EndTestHandler(tornado.web.RequestHandler):
 	def post(self):
 		data = self.CorrectData()
-		if data = 'ERROR':
+		if data == 'ERROR':
 			self.redirect('/begintest?err=1')
 		else:
 			printable = db.SetDataInDB(data, user_id)

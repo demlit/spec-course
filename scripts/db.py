@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #_*_coding:utf-8_*_
 import sqlite3 as db
-import date
+#import date
 from datetime import datetime, timedelta, date, time as dt_time
 
 database = '../database/db.db'
@@ -10,7 +10,8 @@ cur = conn.cursor()
 
 
 def Answer(fio):
-	cur.execute("SELECT id FROM Answers WHERE fio=?", (fio))
+	print fio, type(fio)
+	cur.execute("SELECT id FROM Answers WHERE fio=%s" % str(fio))
 	row =  cur.fetchone()
 	if row != None:
 		return False
@@ -20,6 +21,9 @@ def Answer(fio):
 		cur.execute("SELECT id FROM Answers WHERE fio=? ORDER BY id DESC;", (fio,))
 		row = cur.fetchone()
 		return row[0]
+	cur.close()
+	conn.close()
+
 
 def GetQuestions():
 	cur.execute("SELECT * FROM Question;")
@@ -36,11 +40,15 @@ def GetQuestions():
 				if answer[1] == question[0]:
 					anslist.append(answer)
 			questlist[question] = anslist
+	cur.close()
+	conn.close()
 	return questlist
 
 def GetCountQuestions():
 	cur.execute("SELECT COUNT(*) FROM Question;")
 	count = cur.fetchone()
+	cur.close()
+	conn.close()
 	return int(count[0])
 
 def SetDataInDB(data, user_id):
@@ -49,27 +57,28 @@ def SetDataInDB(data, user_id):
 	cur.execute("SELECT * FROM AnswerValues;")
 	answers = cur.fetchall()
 	content = "<p>Результаты теста:\n"
-	
 	for q in questions:
 		if q[1] == 1:
-			cur.execute("SELECT Value FROM AnswerValues WHERE id_Question=?",(q[0],))
-			ans = cur.fetchall()[int(self.get_body_argument("ans%s" % str(q[0]))) - 1]
-			self.write("Choice one answer: %s<br>" % ans)
+			value = []
+			for v in answers:
+				if v[2] == q[0]:
+					value.append(v[1])
+			ans = value[data[q[0]]]
+			content = content + "Choice one answer: %s<br>" % ans
+
 		if q[1] == 2:
-			cur.execute("SELECT Value FROM AnswerValues WHERE id_Question=?",(q[0],))
-			ans = ''
-			abc = cur.fetchall()
-			for i in self.get_body_arguments("ans%s" % str(q[0])):
-				ab = abc[int(i)-1]
-				ans = ans+ab[0]+' '
-			self.write("Choice many answers: %s<br>" % ans)
+			value = []
+			for v in answers:
+				if v[2] == q[0]:
+					value.append(v[1])
+			ans = value[data[q[0]]]
+			content = content + "Choice many answers: %s<br>" % ans
+
 		if q[1] == 3:
-			ans = self.get_body_argument("ans%s" % str(q[0]))
-			self.write("Input answer: %s<br>" % ans)
-		cur.execute("INSERT INTO AnswerDetails(id_Answer,id_Question,Answers) VALUES (?,?,?);", (id_Answer, id, ans[0]))
+			ans = data[q[0]]
+			content = content + "Input answer: %s<br>\n" % ans
+		cur.execute("INSERT INTO AnswerDetails(id_Answer,id_Question,Answers) VALUES (?,?,?);", (user_id, q[0], ans))
 	conn.commit()
+	cur.close()
+	conn.close()
 
-
-
-cur.close()
-conn.close()
