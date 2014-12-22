@@ -31,7 +31,11 @@ class BeginTestHandler(tornado.web.RequestHandler):
 	def post(self):
 		if self.get_query_argument("err", default = False):
 			self.write(page.makepage('questions', 'incorrectdata'))
+		elif self.get_body_argument("new", default = False):
+			print 'ping'
+			self.Start()
 		else:
+			print 'pong'
 			fio = self.CorrectName()
 			if fio == 'ERROR':
 				self.redirect('/?err=1')
@@ -95,7 +99,9 @@ class BeginTestHandler(tornado.web.RequestHandler):
 		questlist = db.GetQuestions()
 		content = "<p>Добро пожаловать на самый бессмысленный тест в вашей жизни.\n<form action='/endtest' method='POST'>\n"
 		for question in questlist:
-			content = content + page.makequestion(question, questlist[question])
+#			print type(content), type(question), type(questlist[question]), type(page.makequestion(question, questlist[question]))
+			print page.makequestion(question, questlist[question])
+			content = "".join([content, unicode(str(page.makequestion(question, questlist[question])), 'utf-8')])
 		content = content + "<br><input type='submit'></form>"
 		quest = open(staticdir + "questions", 'w')
 		quest.write(content)

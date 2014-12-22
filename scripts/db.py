@@ -10,8 +10,7 @@ cur = conn.cursor()
 
 
 def Answer(fio):
-	print fio, type(fio)
-	cur.execute("SELECT id FROM Answers WHERE fio=%s" % str(fio))
+	cur.execute("SELECT id FROM Answers WHERE fio=?", (fio,))
 	row =  cur.fetchone()
 	if row != None:
 		return False
