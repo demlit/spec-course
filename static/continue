@@ -1,5 +1,9 @@
 <p>С этого компьютера уже кто то проходил тест.
 <p>Возможно даже, что это вы. :-) 
-<p>Будем продолжать или начнём заново?
-<input type="button" value="Заново">
-<input type="button" value="Продолжить">
+<p>Могу только предложить заново начать)
+<form action='/?new=1' method='GET'>
+<input type="hidden" value="Заново">
+</form>
+<form action='/begintest' method='GET'>
+<input type="submit" value="Заново">
+</form>

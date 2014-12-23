@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#_*_coding:utf-8_*_
+#-*- coding: utf-8 -*-
 
 contentdir = '../static/'
 
@@ -36,9 +36,8 @@ def makequestion(q, ans):
 			num = num + 1
 			content = content + "<input type='checkbox' name='ans%s' value='%s'>%s<br>\n" % (a[1], num, a[2]) 
 	if q[2] == 3:
-		content = content + "<p>Введите ответ: <input type='text' name='ans%s'><br>\n" % q[0]
+		content = content + "<p>Vvedite otvet: <input type='text' name='ans%s'><br>\n" % q[0]
 	return content
 
 if __name__=='__main__':
 	print makepage('newuser', 'continue')
-

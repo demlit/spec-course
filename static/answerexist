@@ -1,7 +1,7 @@
 <p>А вы вообще в курсе, что вы уже проходили этот тест?
 <p>Да-да, именно вы, именно ваше имя есть в базе!
 <p>Ладно, ладно, не плачьте. Вы можете:
-<form action="/endtest" method="POST">
+<form action="/endtest" method="GET">
 <input type="submit" name="results" value="Посмотреть результаты">
 </form>
 <form action="/begintest" method="POST">
