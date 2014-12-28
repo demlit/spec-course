@@ -1,14 +1,16 @@
 <html>
-<head>
-<title>Социологический опрос</title>
-<!--<link rel="stylesheet" type="text/css" href="style.css" />-->
-<style type="text/css">
+	<head>
+		<title>Социологический опрос</title>
+		<style type="text/css">
 %stylesheet%
-</style>
-</head>
-<body>
-<div class="content">
+		</style>
+	</head>
+	<body>
+		<div class="top">
+		<h1>Тестирование</h1>
+		</div>
+		<div class="content">
 %content%
-</div>
-</body>
+		</div>
+	</body>
 </html>

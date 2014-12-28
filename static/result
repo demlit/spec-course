@@ -1,3 +1,2 @@
 <p>Results:<br>
-Input answer: 21<br>
-Choice one answer: Muzhskoy<br>Choice many answers: Uchus<br><form action="/?new=1" method="GET"><input type="submit" value="New"></form>
+Сколько тебе лет? - 21<br>Выбери свой пол: - Мужской<br>Ты учишься или работаешь? - Учусь Работаю <br><form action="/?new=1" method="GET"><input type="submit" value="New"></form>

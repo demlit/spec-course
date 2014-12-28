@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #-*- coding: utf-8 -*-
 import sqlite3 as db
 import os
@@ -9,6 +9,7 @@ fillDB = open(contentdir+'fillDB', 'r')
 
 def CreateDB():
 	os.popen("/usr/bin/rm ../database/db.db")
+	os.popen("/usr/bin/touch ../database/db.db")
 	conn=db.connect(contentdir+'db.db')
 	cur=conn.cursor()
 	cur.executescript(createDB.read())

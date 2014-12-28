@@ -1,7 +1,7 @@
 <form action="/begintest" method="POST">
 <p>Фамилия: <input type="text" name="name1"><br>
-<p>Имя: <input type="text" name="name2"><br>
+<p>Имя:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="name2"><br>
 <p>Отчество: <input type="text" name="name3"><br>
-<input type="submit">
+<br><input type="submit">
 </form>
 

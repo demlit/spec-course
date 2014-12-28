@@ -1,13 +1,13 @@
-<p>Hi
+<p>Начинаем самый бессмысленный тест в твоей жизни!
 <form action='/endtest' method='POST'>
-<br><br>1. Skolko tebe let?<br>
-<p>Vvedite otvet: <input type='text' name='ans1'><br>
-<br><br>2. Vyberi svoy pol:<br>
-<input type='radio' name='ans2' value='1'>Muzhskoy<br>
-<input type='radio' name='ans2' value='2'>Zhenskiy<br>
-<input type='radio' name='ans2' value='3'>Parketniy O_o<br>
-<br><br>3. Ty uchishsya ili rabotaesh?<br>
-<input type='checkbox' name='ans3' value='1'>Uchus<br>
-<input type='checkbox' name='ans3' value='2'>Rabotayu<br>
-<input type='checkbox' name='ans3' value='3'>Ya straus<br>
+<br><br>1. Сколько тебе лет?<br>
+<p>Введите ответ: <input type='text' name='ans1'><br>
+<br><br>2. Выбери свой пол:<br>
+<input type='radio' name='ans2' value='1'>Мужской<br>
+<input type='radio' name='ans2' value='2'>Женский<br>
+<input type='radio' name='ans2' value='3'>Паркетный О_о<br>
+<br><br>3. Ты учишься или работаешь?<br>
+<input type='checkbox' name='ans3' value='1'>Учусь<br>
+<input type='checkbox' name='ans3' value='2'>Работаю<br>
+<input type='checkbox' name='ans3' value='3'>Я страус<br>
 <br><input type='submit'></form>

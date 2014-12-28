@@ -1,0 +1,21 @@
+INSERT OR REPLACE INTO
+Types (id,title)
+VALUES
+(1, 'Choises'),
+(2, 'RadioButtons'),
+(3, 'Text');
+INSERT OR REPLACE INTO
+Question (id,content,id_type)
+VALUES
+(1, 'Skolko tebe let?', 3),
+(2, 'Vyberi svoy pol:', 1),
+(3, 'Ty uchishsya ili rabotaesh?', 2);
+INSERT OR REPLACE INTO
+AnswerValues (id_Question,value)
+VALUES
+(2,'Muzhskoy'),
+(2,'Zhenskiy'),
+(2,'Parketniy O_o'),
+(3,'Uchus'),
+(3,'Rabotayu'),
+(3,'Ya straus');

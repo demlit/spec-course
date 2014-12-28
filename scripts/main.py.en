@@ -45,10 +45,7 @@ class BeginTestHandler(tornado.web.RequestHandler):
 		cookie = self.get_cookie("user.opros",default=None)
 		if cookie == None:
 			self.redirect('/')
-		elif self.get_query_argument("err", default = False):
-			self.post()
-		else:
-			self.Start()
+		self.Start()
 
 	def CorrectName(self):
 		name1 = self.get_body_argument("name1")
@@ -64,8 +61,8 @@ class BeginTestHandler(tornado.web.RequestHandler):
 
 	def Start(self):
 		questlist = db.GetQuestions()
-		content = "<p>Начинаем самый бессмысленный тест в твоей жизни!\n<form action='/endtest' method='POST'>\n"
-		for question in sorted(questlist):
+		content = "<p>Hi\n<form action='/endtest' method='POST'>\n"
+		for question in questlist:
 			content = content + page.makequestion(question, questlist[question])
 		content = content + "<br><input type='submit'></form>"
 		quest = open(staticdir + "questions", 'w')
@@ -93,7 +90,7 @@ class EndTestHandler(tornado.web.RequestHandler):
 		count = db.GetCountQuestions()
 		data = {}
 		for num in range(1, count + 1):
-			if self.get_body_argument("ans%s" % num, default = None) == None:
+			if self.get_body_argument("ans%s" % num) == None:
 				return 'ERROR'
 			else:
 				data[num] = self.get_body_arguments("ans%s" % num)

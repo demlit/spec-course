@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #-*- coding: utf-8 -*-
 import sqlite3 as db
-from datetime import datetime, timedelta, date, time as dt_time
+#from datetime import datetime, timedelta, date, time as dt_time
+from datetime import datetime, date
 
 database = '../database/db.db'
 
@@ -65,36 +66,36 @@ def GetCountQuestions():
 def SetDataInDB(data, user_id):
 	conn = db.connect(database)
 	cur = conn.cursor()
-	cur.execute("SELECT id,id_type FROM Question;")
+	cur.execute("SELECT * FROM Question;")
 	questions = cur.fetchall()
 	cur.execute("SELECT * FROM AnswerValues;")
 	answers = cur.fetchall()
-	content = "<p>Results:<br>\n"
+	content = "<p>Результаты:<br>\n"
 	for q in questions:
-		if q[1] == 1:
+		if q[2] == 1:
 			value = []
 			for v in answers:
 				if v[1] == q[0]:
 					value.append(v[2])
 			ans = str(value[int(data[q[0]][0])-1])
-			content = content + "Choice one answer: %s<br>" % ans
+			content = content + "%s - %s<br>" % (q[1],ans)
 
-		if q[1] == 2:
+		if q[2] == 2:
 			value = []
 			ans = ''
 			for v in answers:
 				if v[1] == q[0]:
 					value.append(v[2])
 			for i in data[q[0]]:
-				ans = ans + str(value[int(i)-1])
-			content = content + "Choice many answers: %s<br>" % ans
+				ans = ans + str(value[int(i)-1]) + ' '
+			content = content + "%s - %s<br>" % (q[1],ans)
 
-		if q[1] == 3:
+		if q[2] == 3:
 			ans = data[q[0]]
 			ans = str(ans[0])
-			content = content + "Input answer: %s<br>\n" % ans
+			content = content + "%s - %s<br>" % (q[1],ans)
 		cur.execute("INSERT OR REPLACE INTO AnswerDetails(id_Answer,id_Question,Answers) VALUES (?,?,?);", (user_id, q[0], str(ans)))
-	content = content + '<form action="/?new=1" method="GET"><input type="submit" value="New"></form>'
+	content = content + '<form action="/?new=1" method="GET"><input type="submit" value="Заново"></form>'
 	conn.commit()
 	cur.close()
 	conn.close()
@@ -108,20 +109,20 @@ def GetResults(user_id):
 	cur.execute("SELECT * FROM Question")
 	questions = cur.fetchall()
 	count = int(GetCountQuestions())
-	content = "<p>Results:<br>\n"
+	content = "<p>Результаты:<br>\n"
 	c = 0
 	for a in answers:
 		if c%count == 0:
-			content = content + "<br><br>Test number %s:<br><br>" % (c/count+1)
+			content = content + "<br><br>Тест №%s:<br><br>" % int(c/count+1)
 		c = c + 1
 		type = questions[a[2]-1]
 		if type[2] == 1:
-			content = content + "Choice one answer: %s<br>" % a[3] 
+			content = content + "%s - %s<br>" % (type[1],a[3]) 
 		if type[2] == 2:
-			content = content + "Choice many answers: %s<br>" % a[3]
+			content = content + "%s - %s<br>" % (type[1],a[3]) 
 		if type[2] == 3:
-			content = content + "Input answer: %s<br>\n" % a[3]
-	content = content + '<form action="/?new=1" method="GET"><input type="submit" value="New"></form>'
+			content = content + "%s - %s<br>" % (type[1],a[3]) 
+	content = content + '<form action="/?new=1" method="GET"><input type="submit" value="Заново"></form>'
 	cur.close()
 	conn.close()
 	return content
