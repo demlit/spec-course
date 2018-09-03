@@ -68,7 +68,7 @@ class BeginTestHandler(tornado.web.RequestHandler):
 		for question in sorted(questlist):
 			content = content + page.makequestion(question, questlist[question])
 		content = content + "<br><input type='submit'></form>"
-		quest = open(staticdir + "questions", 'w')
+		quest = open(staticdir + "questions", 'w', encoding="utf8")
 		quest.write(content)
 		quest.close()
 		self.write(page.makepage('questions'))
@@ -83,7 +83,7 @@ class EndTestHandler(tornado.web.RequestHandler):
 			self.redirect('/begintest?err=1')
 		else:
 			printable = db.SetDataInDB(data, user_id)
-			result = open(staticdir + "result", 'w')
+			result = open(staticdir + "result", 'w', encoding="utf8")
 			result.write(printable)
 			result.close()
 			self.write(page.makepage('result'))
@@ -107,7 +107,7 @@ class EndTestHandler(tornado.web.RequestHandler):
 			self.redirect('/')
 		if self.get_argument("results", default=False):
 			printable = db.GetResults(user_id)
-			results = open(staticdir + "results", 'w')
+			results = open(staticdir + "results", 'w', encoding="utf8")
 			results.write(printable)
 			results.close()
 			self.write(page.makepage('results'))
@@ -125,10 +125,15 @@ application = tornado.web.Application([
 	(r"/endtest", EndTestHandler),
 ])
 
-if __name__=='__main__':
-	if sys.argv[1] == 'newDB':
-		from createdb import CreateDB
-		CreateDB()
+if __name__ == '__main__':
+	try:
+		sys.argv[1]
+	except:
+		pass
+	else:
+		if sys.argv[1] == 'newDB':
+			from createdb import CreateDB
+			CreateDB()
 	http_server = tornado.httpserver.HTTPServer(application)
 	http_server.listen(8888)
 	tornado.ioloop.IOLoop.instance().start()

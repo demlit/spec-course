@@ -8,10 +8,10 @@ def makepage(*content):
 	insert = ''
 	page = ''
 	for con in content:
-		con = open(contentdir+con, 'r')
+		con = open(contentdir+con, 'r', encoding="utf8" )
 		insert = insert + con.read()
-	template = open(contentdir+'template', 'r')
-	stylesheet = open(contentdir+'style.css', 'r')
+	template = open(contentdir+'template', 'r', encoding="utf8")
+	stylesheet = open(contentdir+'style.css', 'r', encoding="utf8")
 	for line in  template.readlines():
 		if line == '%content%\n':
 			line = insert
@@ -22,6 +22,7 @@ def makepage(*content):
 	template.close()
 	stylesheet.close()
 	return page
+
 
 def makequestion(q, ans):
 	content = "<br><br>%s. %s<br>\n" % (q[0], q[1])
@@ -38,6 +39,7 @@ def makequestion(q, ans):
 	if q[2] == 3:
 		content = content + "<p>Введите ответ: <input type='text' name='ans%s'><br>\n" % q[0]
 	return content
+
 
 if __name__=='__main__':
 	print (makepage('newuser', 'continue'))
